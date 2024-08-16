@@ -1,5 +1,5 @@
- # Writing your own CSS-only Games
-# Part 1: Counters
+# Writing your own CSS-only Games #
+## Part 1: Counters
 
 CSS is not a programming language. Not _officially_. But it [is possible to create games with only HTML and CSS](https://www.youtube.com/watch?v=-e5nWsGgZXQ). And there are even some tutorials on how to make a specific game: [a click 'em all](https://medium.com/cssclass-com/how-to-create-pure-css-games-2a29c777bf4), [a jigsaw](https://css-tricks.com/how-i-made-a-pure-css-puzzle-game/), [a maze](https://scriptraccoon.dev/blog/create-css-maze), and maybe more that I have not found.
 
