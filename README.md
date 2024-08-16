@@ -281,7 +281,7 @@ Figure 7.
 
 So here's a trick that you can use: You can set the `display` value of certain HTML elements to `none` if particular checkboxes or radio buttons are `checked`. The CSS elves will not count the elements with `display: none`, so you can display the number of such elements that are visible.
 
-### Time to Play: counting clicks
+### Time to play: counting clicks
 
 If all this makes sense to you, the perhaps you'd like to create a really simple activity. (If it doesn't make sense, then you can go back and read the links that I provided for each new concept, and you try to make different mistakes to irritate your browser, until you can work out what rules it really wants you to follow.)
 
@@ -617,6 +617,8 @@ Try both of these changes in the clicking-on-circles exercise that you have just
 
 Custom CSS properties do not behave like variables do in other languages. So _I_ always say "custom CSS ***properties***", to make this distinction clear. But if you call them "CSS variables", I won't say anything. I'll just sigh.
 
+Here is the official explanation of this, without any reference to CSS elves: [Resolving Dependency Cycles](https://www.w3.org/TR/css-variables-1/#cycles)
+
 ### Setting a starting value for a counter
 
 To explore how custom CSS properties can interact with counters, create a new HTML file with the following body:
@@ -889,6 +891,8 @@ The `font-size` is not strictly necessary, but it makes the display more dramati
 
 > <u>Refresh Page 10</u> 
 
+### The `@keyframes` at-rule
+
 CSS Animations are defined by a [`@keyframes`](https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes) at-rule. Here is a rule that creates an animation with the name `timer`:
 ```css
 @keyframes timer {
@@ -930,7 +934,19 @@ div{ $% counter-increment: countdown -$ }*10
 
 An `@keyframes` rule simply gives instructions on what should change after at what point in the animation. It does not give any information on which element this animation should be applied to, or how fast it should run or whether it should repeat, or a number of other things.
 
-To get the countdown timer to work, you can add a single line to your CSS that provides these extra details:
+Notice that each keyframe deducts a bigger number from `countdown` than the previous keyframe. This reveals a critical difference between the way CSS applies a variety of rules to a static page, compared with the way JavaScript can apply loops and variables to create an endless range of possibilities.
+
+In JavaScript, you could reduce the value of a variable by `1` on each iteration through a loop. In CSS, each time a new keyframe uses `counter-increment` to change the value of the `countdown` counter, it does this with reference to the initial value of `10` that is set by this rule for the `<body>` element:
+```css
+body {
+  counter-set: countdown 10;
+}
+```
+Or to put it another way, CSS starts from the original static HTML page each time, and applies its rules in the appropriate order. There is never any question of looping. 
+
+### Playing an animation
+
+To get the countdown timer to work, you can add a single line to your CSS. This provides details that are not included in the `@keyframes` at-rule itself:
 ```css
 a::after {
   content: counter(countdown);
@@ -941,10 +957,10 @@ a::after {
 
 This new line says:
 - Apply the animation named `timer` to the element identified by `body::after`
-- Play the animation for [`10s`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration)
+- Play the animation over the span of [`10s`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-duration)
 - When the animation reaches the end, don't rewind. Just play it [`forwards`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode).
 
-The animation should start as soon as you load the page, and continue until the counter shows a big `0`. The word `forwards` is one of the values of the [`animation-fill-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode) property. It tells the CSS elves to leave everything as they were told to by the last keyframe they read.
+The animation should start as soon as you load the page, and continue until the counter shows a big `0`. The word `forwards` is one of the values of the [`animation-fill-mode`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-fill-mode) property. It tells the CSS elves to leave everything the way they were told to by the last keyframe they read.
 
 Now you might understand why I started with the `Refresh Page` link. If you click on it, you can play the animation again.
 
@@ -1156,10 +1172,238 @@ The more complex selector for the `#paused` button means that it could now be an
 
 ### Triggering a timeout
 
-Now that you can create a countdown timer, the next step is to do something when the player's time runs out. If CSS were a programming language, you might do something when the value of the `counter` reaches `0`. But CSS is a styling language. It uses counters but it does not give you any way to read the value of a counter, and certainly no way to compare one value with another.
+Now that you can create a countdown timer, the next step is to do something when the player's time runs out. If CSS were a programming language, you might do something when the value of the `counter` reaches `0`. But CSS is a styling language. It simply applies a series of rules to a basically static page. It _uses_ counters but it does not give you any way to _read the value_ of a counter, and certainly no way to compare one value with another.
 
+The main focus of this article is counters, but to bring the story of a countdown to its logical conclusion, I'm going to have to leave counters aside for a moment, and talk about animations and other CSS properties. 
+
+You've used the `forwards` value of the `animation-fill-mode` property, so whatever CSS rules are given by the last keyframe will persist after the animation has finished. To see this, add a new rule at the end of the `@keyframes timer`:
+```css
+@keyframes timer {
+  /* 10 lines skippep */
+  100% { counter-increment: countdown -10;
+         color: red; /* new rule */
+       }
+}
+```
+Click on the `#stop` radio button and then on the `#play` button, and watch how the number `0` is now shown in red when the animation ends.
+
+Can you see where this is going? Instead of simply changing the `color` of the animated element itself on the last keyframe, you can change something more radical which will affect other elements. It would be best to start a new project for this.
+
+### Time to play:  A Race Against Time
+
+I want to use CSS to tell a story of how one person can save the whole ~~world as we know it~~  browser from a ~~terrible~~ simulated threat, by clicking a button in a race against time. 
+
+Create a new HTML file with a linked CSS file. Here's the HTML that you can use:
+```html
+  <label>
+    <input type="checkbox">
+    <span></span>
+  </label>
+  <div>It was always too late.</div>
+  <a href="/" class="refresh">Refresh Page</a>
+```
+You can make both the `label` and the `div` fill the entire browser viewport, with the `div` in front:
+```css
+label,
+div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 7vmin;
+}
+
+div {
+  background-color: #900;
+}
+```
+The text "It was always too late" should now appear in dramatic black characters on an ominous red background. The mini-game that you can create will give the player the chance to prevent this terrible news from appearing.
+
+The `<label>` with a transparent background is hidden behind this. However the <u>Refresh Page</u> link is also hidden behind the `<div>`, because of the use of `position: fixed`, which creates a new [stacking context](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_positioned_layout/Understanding_z-index/Stacking_context). To raise the link above the `fixed` elements, you have to give it a `position` other than `relative` or `static`:
+```css
+a {
+  position: absolute;
+}
+```
+### Hiding and showing the message of doom
+To hide the red `<div>` you can set its `display` to `none`. But you don't need to do this directly. You can use a custom CSS property with the value of `none`. Add a new rule, and a new line to the ruleset for the `div`:
+```css
+
+body {
+  --display: none;
+}
+
+/* rule for label, div skipped */*
+
+div {
+  background-color: #900;
+  display: var(--display);
+}
+```
+You should now see a little lonely checkbox in the centre of your page. If you click on it, it becomes selected but nothing else happens. You can add a rule to change the value of the `--display` custom property. **This is not the rule that you are looking for**:
+```css
+input:checked {
+  --display: flex;
+}
+```
+You can try it anyway, but it won't work. Why not?
+
+Which element is this custom property applied to? Which element _should_ it be applied to, so that the `div` rule can use it?
+
+Try this instead:
+```css
+body:has(input:checked) {
+  --display: flex;
+}
+```
+Do you see the difference? In the first rule, `--display` was set for the `<input>` element. The `<div>` is not a child of the `<input>` element, so it cannot inherit the value of `--display`.
+
+In fact, `<input>` elements cannot have any children. They are written with a single self-closing tag, so there is nowhere for a child to be added. And for this reason, they cannot have `::before` or `::after` pseudo-elements either. That's why I added an empty `<span></span>` element, which _can_ have children and `::before` and `::after` pseudo-elements, because that's what I'll use for story-telling.
+
+The second rule, which uses the [`:has()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) pseudo-class, allows me to select the `<body>` element, only if there is an `<input>` which is `:checked` as one of its children. When you check the checkbox, the _`<body>`_ gives its `--display` custom property the new value of `flex`, and the `<div>` is a child of the `<body>`, so it inherits this new value. And the red message fills the screen.
+
+You can click on the <u>Refresh Page</u> link to make it disappear again.
+
+### Ten seconds until the end
+
+Actually, so far you have created the exact opposite of the story I want to tell. I want to create a countdown where clicking this button will stop the red message from appearing. This is the ending I want your triumphant player to see:
+```css
+span::before {
+  content: "My hero!";
+  display: block;
+}
+span::after {
+  content: "You saved us!"
+}
+```
+You can use the same countdown timer that you used in the last exercise...
+```css
+@keyframes timer {
+   0% { counter-increment: countdown   0; }
+  10% { counter-increment: countdown  -1; }
+  20% { counter-increment: countdown  -2; }
+  30% { counter-increment: countdown  -3; }
+  40% { counter-increment: countdown  -4; }
+  50% { counter-increment: countdown  -5; }
+  60% { counter-increment: countdown  -6; }
+  70% { counter-increment: countdown  -7; }
+  80% { counter-increment: countdown  -8; }
+  90% { counter-increment: countdown  -9; }
+ 100% { counter-increment: countdown -10;
+        --display: flex;
+      }
+}
+```
+... but instead of making the little harmless `0` turn red, this will turn the whole page red, as `--display` is set to `--flex` on the last keyframe.
+
+If you add this to your CSS file, nothing will happen... yet. First you have to start the animation. So here's a question. The following rule will start the animation. Which element should it be applied to?
+
+```css
+animation: timer 1s step-end forwards;
+```
+I've used a very short duration (`1s`) for now, so that you will see immediately if the animation is working or not. Remember, the final value of `--display` needs to be applied to the `<div>`.  Would this work?
+```css
+div {
+  animation: timer 1s step-end forwards; /* new rule */
+  background-color: #900;
+  display: var(--display);
+}
+```
+You can try it. You can try putting the new `animation` rule at the end of the ruleset. But, no, it doesn't work.
+
+It's not crystal clear why not. The official documentation talks about  ["animation-tainted" custom properties](https://www.w3.org/TR/css-variables-1/#animation-tainted), and discussions on the [W3C GitHub Issues pages](https://github.com/w3c/csswg-drafts/issues/411#issuecomment-890081098) show just how complex the interaction of custom variables and keyframe animations is. I use the principle of [(https://www.newscientist.com/definition/occams-razor/)] here. To paraphrase: if it doesn't work, don't look for anything more complex. Find a solution that does work.
+
+So what happens if you apply the animation to the `<body>`instead?
+```css
+body {
+  --display: none;
+  animation: timer 1s step-end forwards; /* new rule */
+}
+```
+Now the animation works. Now that you know that, you can set its duration to `10s` to give yourself time to stop the animation before it ends in tragedy.
+
+### Averting the impending disaster
+
+My story needs two more elements to make it even a little bit interesting:
+1. An indication that the end is coming
+2. An action that will stop the animation.
+
+You can use the `counter(countdown)` to indicate how much time is left:
+```css
+input:not(:checked) {
+  & ~ span::before {
+    content: "Click me! Before it's too late...";
+  }
+
+  & ~ span::after {
+    content: "We have only " counter(countdown) " seconds left!";
+  }
+}
+```
+The selector `input:not(:checked)` adds greater specificity to the selector that acclaims the hero (`span::before`), so the span will show this text as long as the checkbox is not clicked. But `counter(countdown)` starts at `0` and then goes negative. How can you get it to start at `10`? You'll need to add something like the following rule somewhere. But where?
+```css
+counter-set: countdown 10;
+```
+If you place this in the ruleset for `body` then the value of `10` will be constantly reset. The animation will change it every second, sure, but then the CSS rules will be reapplied, starting from the beginning, and once again, the `countdown` will be reset to `10`.
+
+You need to apply this rule to the _parent_ of the `<body>`. But isn't the `<body>` the final parent of all that you can see in your browser. Yes. the final parent of _all that you can see_. But even the `<body>` has a parent: the `<html>` tag.
+
+You could add this rule...
+```css
+html {
+  counter-set: countdown 10;
+}
+```
+... and it would work. But there's also a pseudo-element `:root`, which slips in between `<html>` and `<body>`, and it is conventional to use that instead:
+```css
+:root {
+  counter-set: countdown 10;
+}
+```
+With this rule the countdown will be shown, and at `0`, the "It was always too late" message will be shown. If you click on the button to stop it, you just bring the end closer. That's because of the rule you added a while back. It's time to remove this:
+```css
+```css
+body:has(input:checked) {
+  --display: flex;
+}
+```
+Now, if you click (anywhere) the checkbox will be checked, and you will be praised as a hero. But wait for the 10-second countdown to end, and the terrible red message will appear anyway.
+
+You need to stop the animation.
+
+Only you can do this. _You_ are the hero.
+
+You need to tell the `<body>` to pause the animation when the checkbox is checked.
+
+And here comes the twist in my story. You are not the hero after all. You just set up the situation so that you can _look_ like the hero.
+
+Does that give you a clue as to how to solve this?
+
+You need to set the `animation-play-state` to `paused` by default, and only set it to [whatever the opposite of `paused` is](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state) while the checkbox is _not_ checked. This means that you need to create a selector that selects the `<body>` only if the checkbox is not checked.
+
+Here is your secret Bond-villain plan:
+```css
+body {
+  --display: none;
+  animation: timer 10s step-end forwards paused; /* new property */
+}
+```
+You make the world safe. And _then_ you create the sense of danger with this new rule:
+```css
+body:has(input:not(:checked)) {
+  animation-play-state: running;
+}
+```
+And since you are now the villain, you can deselect the checkbox again, and let countdown continue. You can both save the world and let the end come anyway. 
+
+Yes, but while you were doing this, the real hero (played by your non-evil twin) crept unseen into the HTML file and changed the `type` of the `<input>` from `"checkbox"` to `"radio"`. Once a solitary radio button is checked, it cannot be unchecked. The good guys win again! One person can save the world!
 
 ### Animating a counter-style
+
 ### Using an animation to cycle a list smoothly
 
 ## Incrementing with `:hover`
