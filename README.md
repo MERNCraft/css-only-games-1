@@ -83,12 +83,13 @@ You can change the number that the list starts with by using the `start` attribu
 ![ol start](images/ol.webp)  
 Figure 1.
 
-This works because under the hood, the browser uses a  [counter](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_counter_styles/Using_CSS_counters) called `list-item`. You can control this counter through CSS. With the following ruleset, all your `<ol>` elements will start from `101`... even those where you set the `start` property in your HTML file. The `counter` property takes precedence.
+This works because under the hood, the browser uses a  [counter](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_counter_styles/Using_CSS_counters) called `list-item`. You can control this counter through CSS. With the following rule, all your `<ol>` elements will start from `101`... even those where you set the `start` property in your HTML file. The `counter` property takes precedence...
 ```css
 ol {
   counter-set: list-item 101;
 }
 ```
+... except that since Google released Chromium 126 on 11 June 2024, this use of `list-item` is broken in Webkit browsers such as Google Chrome, Opera and Microsoft Edge. It still works in Firefox and Safari, so you can test it there. It's not a big deal, because you won't need to use exactly this feature for anything in your CSS-only games. It's just nice to know that ordered `<ol>` lists were where the `counter` feature came from.
 ### Free for all
 
 Ordered lists don't claim exclusive rights over counters. Browsers make counters available to any element. They give you full control of any kind of numbering process. Here's how you could create a similar (not identical) result using a `<ul>` unordered list.
@@ -171,7 +172,7 @@ Notice the values of `counter(item)` that are shown in the `<b>` elements.
 
 
 ### White space matters
-Try adding a new line to the `b` ruleset:
+Try adding a new line to the ruleset for the `b::before` selector:
 ```css
   b::before {
     counter-increment: item+1; /* new line */
@@ -230,7 +231,7 @@ The CSS elves will only count what they can see. You can try to trick them with 
   </ul>
 ```
 
-And you can add a new ruleset that will hide the `<li>` item immediately after the checkbox when you check it.
+And you can add a new rule that will hide the `<li>` item immediately after the checkbox when you check it.
 
 (Note that I've also removed the `counter-increment: item -1;` from the `b::before` ruleset, to keep things simple.)
 ```css
@@ -246,7 +247,7 @@ ul {
     content: "Item " counter(item) ". ";
   }
 
-  /* New ruleset */
+  /* New rule */
   input:checked + li {
     display: none;
   }
@@ -267,7 +268,7 @@ If an element is not displayed, then no counter will count it.
 However, if you simply hide a list item, like this...
 
 ```css
-  /* New ruleset */
+  /* New rule */
   input:checked + li {
     visibility: hidden; /* new rule */
   }
@@ -304,7 +305,7 @@ You can create an new HTML file and give it these elements:
   <p>You have clicked on <span>/</span> circles.</p>
 ```
 
-Attach a CSS stylesheet with the following rulesets:
+Attach a CSS stylesheet with the following rules:
 
 ```css
 body {
@@ -462,7 +463,7 @@ But were you really being disruptive? Or were you just following instructions ag
 
 > Notice how I use the word "above" in the text above. The third circle is shown on the screen _below_ the other two, and lower down in the HTML file. However, it is _drawn_ in a layer that covers the circles that appear earlier in the HTML file. In the _z-direction_ —from the screen to your eye— it is _above_ the other circles, even if in the y-direction, it is closer to the bottom of your screen.
 > 
-> You can see what I mean if you add this ruleset at the end of your file:
+> You can see what I mean if you add this rule at the end of your file:
 > ```css
 >  label:last-of-type span {
     position: relative;
@@ -477,7 +478,7 @@ But were you really being disruptive? Or were you just following instructions ag
 
 From the test that you did above, you can deduce that **the order in which elements appear _in the HTML file_ affects the order in which they can increment a `counter`**.
 
-But what about the order of rulesets in the CSS stylesheet? What happens if you change the order in which the `counter` properties are set and read, as shown below?
+But what about the order of rules in the CSS stylesheet? What happens if you change the order in which the `counter` properties are set and read, as shown below?
 ```css
 /* Read the value of the counter properties... */
 p span::before {
@@ -521,7 +522,7 @@ input:checked ~ span {
   opacity: 1;
 }
 ```
-Does this solve the problem that you just created? No. But if you place a copy of the  element`<p>You have clicked on <span>/</span> circles.</p>` back at the end, everything works fine,  at least in this final position. This _suggests_ that the order in which rulesets appear _in the CSS file_ **does not** affect the order in which a `counter` is incremented.
+Does this solve the problem that you just created? No. But if you place a copy of the  element`<p>You have clicked on <span>/</span> circles.</p>` back at the end, everything works fine,  at least in this final position. This _suggests_ that the order in which rules appear _in the CSS file_ **does not** affect the order in which a `counter` is incremented.
 
 But don't let this give you a false sense of security. As Mr Weasley said: "Never trust something that can think for itself if you can't see where it keeps its brain".
 
@@ -670,7 +671,7 @@ label {
 I imagine that:
 - You chose a different name for your counter
 - You might have given it an initial value and an explicit increment value
-- Your rulesets might be in a different order.
+- Your rules might be in a different order.
 
 That's good. It means that you won't be able to simply copy and paste the CSS that I provide below. You'll have to adapt it to work with your property names. You'll have to make an effort : )
 
@@ -686,8 +687,8 @@ body {
   counter-reset: item var(--start);
 }
 ```
-3. Add three new rulesets that will change the value of your custom CSS property.
-  **Note that I have placed ruleset for the  the `#add1000`input first. Please do the same, even if you are feeling disruptive. You'll see why in a moment.**
+3. Add three new rules that will change the value of your custom CSS property.
+  **Note that I have placed the rule for the  the `#add1000`input first. Please do the same, even if you are feeling disruptive. You'll see why in a moment.**
 ```css
 /* Use the checkboxes to change the value of --start */
 body:has(#add1000:checked)  {
@@ -723,9 +724,9 @@ But if you check Add 1000 _and one of the other checkboxes_, you do **not** see 
 ![add to --start](images/add-to-start.webp)  
 Figure 12.
 
-If you see something different, then check that your ruleset for `#add1000` does appear first in your CSS file, as it does in my code listing above.
+If you see something different, then check that your rule for `#add1000` does appear first in your CSS file, as it does in my code listing above.
 
-I deliberately placed the ruleset for `#add1000` first, so that you can see that the order in which the CSS rulesets are written **does** matter when you set the value of custom CSS property. Even if you change the order of the `<input>` elements in the HTML file, as shown below, the order of the CSS rulesets still takes priority.
+I deliberately placed the rule for `#add1000` first, so that you can see that the order in which the CSS rules are written **does** matter when you set the value of custom CSS property. Even if you change the order of the `<input>` elements in the HTML file, as shown below, the order of the CSS rules still takes priority.
 ```html
   <label>
     Add 1000: <input id="add1000" type="checkbox">
@@ -755,7 +756,7 @@ Here's how you could test this. Add a new line to your HTML:
   <p>Sailor</p>
 ```
 
-Replace your current ruleset for `body` with these two rulesets... which may or may not be in a logical order. (That's what we want to find out.)
+Replace your current rule for `body` with these two rules... which may or may not be in a logical order. (That's what we want to find out.)
 ```css
 b.resetter {
   counter-set: item 9999;
@@ -1066,7 +1067,7 @@ Instead of `:hover`, you can use the state of a checkbox or a radio button to ch
 ```
 Notice that there are three radio buttons which all appear before the `<a>` link. These radio buttons share the same `name` property, so only one can be on at a time, but they all have different `id` values.
 
-In your CSS page, comment out the ruleset for `a:hover::after` and add a new rule for the radio buttons:
+In your CSS page, comment out the rule for `a:hover::after` and add a new rule for the radio buttons:
 ```css
 /* a:hover::after {
   animation: timer 1s forwards step-end;
@@ -1129,7 +1130,7 @@ input#paused:checked ~ a::after {
 ```
 Why? DRY! The duration of `10s` is defined in only one place. In the earlier version, you could set a different duration in each of the rulesets, and unexpected things could happen.
 
-The selector that you use for the different rulesets must apply to exactly the same element. The animation "belongs" to that element. The selectors used can look very different, so long as they refer to the same animated element. These rulesets would also work:
+The selector that you use for the different rules must apply to exactly the same element. The animation "belongs" to that element. The selectors used can look very different, so long as they refer to the same animated element. These rules would also work:
 ```css
 body:has(input#paused:checked) a::after,
 input#play:checked ~ a::after {
@@ -1154,6 +1155,10 @@ The more complex selector for the `#paused` button means that it could now be an
 ```
 
 ### Triggering a timeout
+
+Now that you can create a countdown timer, the next step is to do something when the player's time runs out. If CSS were a programming language, you might do something when the value of the `counter` reaches `0`. But CSS is a styling language. It uses counters but it does not give you any way to read the value of a counter, and certainly no way to compare one value with another.
+
+
 ### Animating a counter-style
 ### Using an animation to cycle a list smoothly
 
