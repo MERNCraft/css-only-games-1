@@ -1405,6 +1405,17 @@ And since you are now the villain, you can deselect the checkbox again, and let 
 
 Yes, but while you were doing this, the real hero (played by your non-evil twin) crept unseen into the HTML file and changed the `type` of the `<input>` from `"checkbox"` to `"radio"`. Once a solitary radio button is checked, it cannot be unchecked. The good guys win again! One person can save the world!
 
+### Final tweaks
+
+The [online version](https://merncraft.github.io/countdown)of this mini story game contains some cosmetic improvements. In particular, if you let the countdown reach one second, your version of the game will say "We have only 1 *seconds* left!", with "seconds" in the plural even though there is only one.
+
+[![1 second](images/second.webp)](https://merncraft.github.io/countdown/)  
+[Link](https://merncraft.github.io/countdown/)
+
+In the online version, this infelicity has gone. How do you think I fixed it? Hint: [counters can count](https://merncraft.github.io/counter-styles/).
+
+Also, if the text wraps, then the line break will not occur between the number and the word "second". For this I've used a non-breaking space, which for CSS needs to be written as `"\00a0"`. You can click on GitHub's Octocat logo to visit the repository where you can find the complete source.
+
 ### Animating a counter-style
 
 
