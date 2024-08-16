@@ -33,13 +33,13 @@ If you start with questions, each time you find an answer, you get a little buzz
 
 These are not all complete games or puzzles. You can think of them as illustrations of the concepts that you will be reading more about below.
 
-![train](images/word.webp)  
+[![train](images/word.webp)](https://merncraft.github.io/word/)  
 [Link](https://merncraft.github.io/word/)
 
-![spin](images/spin.webp)  
+[![spin](images/spin.webp)](https://merncraft.github.io/spin/)  
 [Link](https://merncraft.github.io/spin/)
 
-![map](images/map.webp)  
+[![map](images/map.webp)](https://merncraft.github.io/map/)  
 [Link](https://merncraft.github.io/map/)
 
 You might also have other questions, like:
@@ -548,7 +548,7 @@ And why not? It's fun to play, and play is great for learning.
 
 The sequence of traffic lights is not the same in every country. Here's a CSS-only illustration of the traffic light sequences in France and in the UK.
 
-![lights](images/lights.webp)  
+[![lights](images/lights.webp)](https://merncraft.github.io/traffic-lights/)  
 [Link](https://merncraft.github.io/traffic-lights/)
 
 If you want to try this yourself, here's a hint: You'll be placing a checkbox `<input>` and a `<span>` inside a `<label>` for each light, as you have just been doing, but the `<span>` inside (at least) one label will need a `z-index` setting, so that a click on this `<span>` will check a radio button in a lower layer.
@@ -799,7 +799,7 @@ Here's a CSS-only presentation of how the [`@counter-style`](https://developer.m
 
 The `<ol>` list on the left contains only empty `<li>` items, so all you see are the `::marker` tokens.
 
-![symbols](images/symbols.webp)  
+[![symbols](images/symbols.webp)](https://merncraft.github.io/counter-styles/)  
 [Link](https://merncraft.github.io/counter-styles/)
 
 The default value for `list-style-type` is decimal. Your browser has [over 100 built-in alternatives](https://w3c.github.io/predefined-counter-styles/), to cater to writing systems all around the world. You can see them in action [here](https://mdn.github.io/css-examples/counter-style-demo/). In order to create so many styles, the [`@counter-style`](https://developer.mozilla.org/en-US/docs/Web/CSS/@counter-style) at-rule became[available in all major browsers since September 2023](https://caniuse.com/?search=%40counter-style). 
@@ -855,7 +855,7 @@ You can only change a few properties of the `::marker` pseudo-element. You can't
 ```
 Note that the `:hover` pseudo-class applies to the list item itself; it cannot be applied to the `::marker` pseudo-element.
 
-![hovering on Saturday](images/hover-sat.webp)  
+[![hovering on Saturday](images/hover-sat.webp)](https://merncraft.github.io/counter-styles/)  
 [Link](https://merncraft.github.io/counter-styles/)
 
 The `::marker` pseudo-element only applies to list elements (`<ul>`, `<ul>` and `<dl>`). You can provide CSS rulesets for the  `::before` and `::after` pseudo-elements of any visible element, and these can be styled in many more ways than the `::marker` pseudo-element.
@@ -1193,6 +1193,9 @@ Can you see where this is going? Instead of simply changing the `color` of the a
 
 I want to use CSS to tell a story of how one person can save the whole ~~world as we know it~~  browser from a ~~terrible~~ simulated threat, by clicking a button in a race against time. 
 
+[![countdown](images/countdown.webp)](https://merncraft.github.io/countdown/)  
+[Link](https://merncraft.github.io/countdown/)
+
 Create a new HTML file with a linked CSS file. Here's the HTML that you can use:
 ```html
   <label>
@@ -1404,6 +1407,7 @@ Yes, but while you were doing this, the real hero (played by your non-evil twin)
 
 ### Animating a counter-style
 
+
 ### Using an animation to cycle a list smoothly
 
 ## Incrementing with `:hover`
@@ -1415,7 +1419,7 @@ I wrote at the beginning of this article that I would not be showing you, step b
 
 I've created a game that uses the techniques that I have describe above. You can find the GitHub Repository [here](https://github.com/MERNCraft/path).
 
-![path](images/path.webp)  
+[![path](images/path.webp)](https://MERNCraft.github.io/path/)  
 [Link](https://MERNCraft.github.io/path/)
 
 If you clone the repository and launch the game on your own computer, you will find that the scoring and timing system is missing. Using the knowledge that you have just acquired, can you get your local version of the game to behave the same as the online version?
