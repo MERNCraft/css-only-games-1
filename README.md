@@ -29,7 +29,7 @@ Before you start, you can play a little with the CSS-only activities below. Ask 
 - Really!? I can use _counters_ to animate emojis? How soon can I use that in a project?
 - How does a counter know where the mouse is?
 
-If you start with questions, each time you find an answer, you get a little buzz of satisfaction.
+If you start with questions, each time you find an answer, you get a little buzz of satisfaction. It's like with jokes. If you hear the punchline first, you might think "When am I ever going to need an answer like this?" If you hear the build-up first, the punchline becomes something you want to share with your friends.
 
 These are not all complete games or puzzles. You can think of them as illustrations of the concepts that you will be reading more about below.
 
@@ -49,7 +49,7 @@ You might also have other questions, like:
 - How do I ensure that whichever button the player clicks last behaves differently from the others?
 - Must I solve the word game to find a link to the repo?
 
- Keep these questions in mind. You'll find answers to them in forthcoming tutorials... unless you can work out the answers for yourself first : )
+Keep these questions in mind. You'll find answers to them in forthcoming tutorials... unless you can create good ~~punchlines~~ answers for yourself first : )
 
 ### What I expect you to know already
 
@@ -1010,6 +1010,23 @@ With the `step-end` timing function, you should see an abrupt change to the next
 >
 >If you give your brain the chance to compare and contrast ideas, your brain will pay more attention.
 
+Here's an demonstration of the timing of changes of a different discrete animatable CSS property: `z-index`:
+[![animation-timing-function](images/timing.webp)](https://MERNCraft.github.io/timing)
+This demonstration uses the following `@keyframes` animation:
+```css
+@keyframes z-left {
+  0%  { z-index: 0; left:  0px; }
+  10% { z-index: 1; left:  0px; }
+  30% { z-index: 2; left:  50px; }
+  50% { z-index: 3; left: 100px; }
+  70% { z-index: 4; left: 150px; }
+  90% { z-index: 5; left: 200px; }
+ 100% { z-index: 5; left: 200px; }
+}
+```
+When you select `step-end` as the `animation-timing-function` for this animation, the integer steps for `z-index` coincide with the step-wise change of the `left` property for the grey square. When you select `linear` as the `animation-timing-function`, the value of `left` changes at a steady pace between keyframes. The change in `z-index` occurs when the grey square is halfway between two keyframe positions.
+
+You can find a list of all animatable CSS properties [here](https://www.quackit.com/css/css3/animations/animatable_properties/). Most properties have an animation associated with them, and code that you can copy and paste.
 ### Starting an animation
 
 For now, to restart the animation, you have to click on the link to reload the page. Reloading the page will reset everything in your game, so you only want to do this if the player wants to start over from the beginning.
@@ -1418,7 +1435,13 @@ Also, if the text wraps, then the line break will not occur between the number a
 
 ### Animating a counter-style
 
+Now you are ready to combine animating a counter and using a custom `@counter-style` at-rule. Here's a little puzzle where the challenge is not finding the combination of letters that opens the lock, but finding the order in which you need to change the letters. If you get the right word but don't get the right order, the CSS equivalent of an alarm goes off when you press Enter.
 
+But you should know a little about me by now. I do like words to be spelt correctly, and to move the shortest distance between points. Of the 24 possible orders in which you can change each letter only once, only one meets my high standards.
+
+[![lock](images/lock.webp)](https://MERNCraft.github.io/lock)
+
+This article is about counters, so I won't show you how to create the entire puzzle. I'll just show you how to animate the way the letters change. I'll get you to make a much simpler activity that uses this technique. If want to see how the order-of-execution logic was done, you can check out the GitHub repository.
 ### Using an animation to cycle a list smoothly
 
 ## Incrementing with `:hover`
