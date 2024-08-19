@@ -10,7 +10,7 @@ In this article, you'll be looking at the following ideas:
 1. Using checkboxes and radio buttons to store state
 2. Using animations to change state
 3. Using `::before` and `::after` pseudo-elements
-4. Using `z-index` to re-order elements
+4. Using `z-index` to reorder elements
 5. Using the `:hover` pseudo-class to intercept the actions of the mouse
 6. Writing selectors that control the logic
 7. Using custom CSS properties
@@ -29,7 +29,7 @@ Before you start, you can play a little with the CSS-only activities below. Ask 
 - Really!? I can use _counters_ to animate emojis? How soon can I use that in a project?
 - How does a counter know where the mouse is?
 
-If you start with questions, each time you find an answer, you get a little buzz of satisfaction. It's like with jokes. If you hear the punchline first, you might think "When am I ever going to need an answer like this?" If you hear the build-up first, the punchline becomes something you want to share with your friends.
+If you start with questions, each time you find an answer, you get a little buzz of satisfaction. It's like with jokes. If you hear the punchline first, you might think: "When am I ever going to need an answer like this?" If you hear the build-up first, the punchline becomes something you want to share with your friends.
 
 These are not all complete games or puzzles. You can think of them as illustrations of the concepts that you will be reading more about below.
 
@@ -119,13 +119,13 @@ The CSS elves see that a `counter` called `item` has been set for the `<ul>` ele
 ![numbered unordered list](images/go-cat-go.webp)  
 Figure 2.
 
-> Note that [you can provide several items](https://developer.mozilla.org/en-US/docs/Web/CSS/content#syntax) in the value for the `content` attribute, like `"Item " counter(item) ". "` and the CSS elves will concatenate them together for you. 
+> Note that [you can provide several items](https://developer.mozilla.org/en-US/docs/Web/CSS/content#syntax) in the value for the `content` attribute, like `"Item " counter(item) ". "`, and the CSS elves will concatenate them together for you. 
 
 > Note that I use [`counter-set`](https://developer.mozilla.org/en-US/docs/Web/CSS/counter-set) and not `counter-reset`, because the current version of Firefox (128.0.3) does not always handle `counter-reset` as you would expect it to.
 
 ### Unpacking how CSS works
 
-Warning: What I show below is _not good HTML_. You are not supposed to use `<b>` tags inside a `<ul>` list, and there's not a real-life case for leaving them empty. But this make-shift HTML is good enough to show you how the CSS elves work.
+Warning: What I show below is _not good HTML_. You are not supposed to use `<b>` tags inside a `<ul>` list, and there's not a real-life case for leaving them empty. But this makeshift HTML is good enough to show you how the CSS elves work.
 ```html
 <b></b>
 <ul>
@@ -199,9 +199,9 @@ If you add a white space, then everything is clear again.
 counter-increment: item -1; /* altered line */
 ```
 
-> Note that there is no `counter-decrement` property. You have to increment by a negative number. And a space.
+> Note that there is no ~~`counter-decrement`~~ property. You have to increment by a negative number. And a space.
 
-Each `b` element decreases `item` by 1, in each and every case, even outside the `<ul>` where the `item` counter is declared. In effect, the CSS elves are very accommodating. You didn't declare a `counter` for this particular element before you started using it? No worries, they will create one for you implicitly. Browers are designed to be forgiving, so you can write sloppy code.
+Each `b` element decreases `item` by 1, in each and every case, even outside the `<ul>` where the `item` counter is declared. In effect, the CSS elves are very accommodating. You didn't declare a `counter` for this particular element before you started using it? No worries, they will create one for you implicitly. Browsers are designed to be forgiving, so you can write sloppy code.
 
 And yes, my code here is deliberately sloppy. I find that you learn more about how to write good code if you deliberately try to break the rules, and see what the effect is. [If you always do things perfectly, you don't find out what the rules are](https://www.youtube.com/watch?v=vKA4w2O61Xo).
 
@@ -213,7 +213,7 @@ Figure 5.
 
 ## Interacting with the User
 
-A web experience cannot be consider to be a game if it has no user interaction. In this section, you'll be seeing how to use checkboxes, radio buttons and sibling combinators ( [`~`](https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator) and [`+`](https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator) ) to change what the CSS is counting, depending on what the user clicks on.
+A web experience cannot be considered to be a game if it has no user interaction. In this section, you'll be seeing how to use checkboxes, radio buttons and sibling combinators ( [`~`](https://developer.mozilla.org/en-US/docs/Web/CSS/Subsequent-sibling_combinator) and [`+`](https://developer.mozilla.org/en-US/docs/Web/CSS/Next-sibling_combinator) ) to change what the CSS is counting, depending on what the user clicks on.
 
 ### Not on display
 
@@ -398,7 +398,7 @@ label span {
 ```
 ... the `silver` background will overwrite the `gold`, just as you would expect.
 
-If you want to declare different `counter` properties on different lines, just use a single semi-colon at the end of the multi-line rule:
+If you want to declare different `counter` properties on different lines, just use a single semicolon at the end of the multi-line rule:
 ```css
 body {
   counter-set:
@@ -435,7 +435,7 @@ Now only the first click on a gold circle will have any effect, and the number o
 
 ### Who keeps order?
 
-If you follow my instructions perfectly, your web page should work. But if it works, what exactly have you learned? You have definitely learned to follow instructions, but you probably knew how to do that already.
+If you follow my instructions perfectly, your web page should work. But if it works, what exactly have you learnt? You have definitely learnt to follow instructions, but you probably knew how to do that already.
 
 So what if you deliberately do something different, something disruptive, something that I didn't ask you to do? For example: what would happen if you put the "You have clicked on ... circles" message at the _beginning_ of your HTML page?
 
@@ -522,18 +522,18 @@ input:checked ~ span {
   opacity: 1;
 }
 ```
-Does this solve the problem that you just created? No. But if you place a copy of the  element`<p>You have clicked on <span>/</span> circles.</p>` back at the end, everything works fine,  at least in this final position. This _suggests_ that the order in which rules appear _in the CSS file_ **does not** affect the order in which a `counter` is incremented.
+Does this solve the problem that you just created? No. But if you place a copy of the  element `<p>You have clicked on <span>/</span> circles.</p>` back at the end, everything works fine,  at least in this final position. This _suggests_ that the order in which rules appear _in the CSS file_ **does not** affect the order in which a `counter` is incremented.
 
-But don't let this give you a false sense of security. As Mr Weasley said: "Never trust something that can think for itself if you can't see where it keeps its brain".
+But don't let this give you a false sense of security. As Mr Weasley said: "Never trust something that can think for itself if you can't see where it keeps its brain."
 
 ![first and last](images/first-last.webp)  
-Figure 10.
+Figure 11.
 
 ### Checking it twice
 
 Whenever I am following a tutorial to learn a new technique, I do the tutorial twice. The first time, I follow the instructions carefully, so that I can see that the results are what the writer promised. 
 
-> Sometimes, tutorials contain errors — a missing step, a missing line, a missing semi-colon — and sometimes the technology has changed since the tutorial was written, and instructions that used to work no longer do. When I encounter a tutorial like this, I find that it is often worth persisting, and searching online for solutions. The process of searching is where a lot of my learning happens.
+> Sometimes, tutorials contain errors — a missing step, a missing line, a missing semicolon — and sometimes the technology has changed since the tutorial was written, and instructions that used to work no longer do. When I encounter a tutorial like this, I find that it is often worth persisting, and searching online for solutions. The process of searching is where a lot of my learning happens.
 
 The second time I do the tutorial, I try not to read it at all. I do as much as I can from memory, and inevitably I make mistakes because there is something that I did not understand, or did not pay attention to, or assumed that I could ignore. I don't _mean_ to be disruptive. I just allow disruption to happen.
 
@@ -639,10 +639,10 @@ To explore how custom CSS properties can interact with counters, create a new HT
     Add 1000: <input id="add1000" type="checkbox">
   </label>
 ```
-Here's a challenge: Before you read on, can you use everything you have learned so far about CSS counters to write the CSS that will make your page look like this?
+Here's a challenge: Before you read on, can you use everything you have learnt so far about CSS counters to write the CSS that will make your page look like this?
 
 ![property layout](images/property-layout.webp)
-Figure 11.  
+Figure 12.  
 
 **DON'T READ ANY FURTHER UNTIL YOU HAVE WRITTEN YOUR OWN CSS.**
 
@@ -690,7 +690,7 @@ body {
 }
 ```
 3. Add three new rules that will change the value of your custom CSS property.
-  **Note that I have placed the rule for the  the `#add1000`input first. Please do the same, even if you are feeling disruptive. You'll see why in a moment.**
+  **Note that I have placed the rule for the  `#add1000` input first. Please do the same, even if you are feeling disruptive. You'll see why in a moment.**
 ```css
 /* Use the checkboxes to change the value of --start */
 body:has(#add1000:checked)  {
@@ -713,7 +713,7 @@ What would happen if you don't use the `:has()` pseudo-class, like this?
   --start: 100
 }
 ```
-The rule above would say "set the value of `--start` for `input#add100` and all its children". But `<input>` elements don't have any children, so the value of `--start` would change only for the `<input>` itself, and the `<input>` itself ignores it. So nothing would happen.
+The rule above would say: "Set the value of `--start` for `input#add100` and all its children." But `<input>` elements don't have any children, so the value of `--start` would change only for the `<input>` itself, and the `<input>` itself ignores it. So nothing would happen.
 
 Refresh your page, and then click on each of the checkboxes in turn. You should see the numbers change. Do they change the way you would expect them to?
 
@@ -724,7 +724,7 @@ And if you check Add 1000 _on its own_, you should see `——[1000]——`.
 But if you check Add 1000 _and one of the other checkboxes_, you do **not** see `——[1000]——`. You see `——[100]——` or `——[10]——` instead.
 
 ![add to --start](images/add-to-start.webp)  
-Figure 12.
+Figure 13.
 
 If you see something different, then check that your rule for `#add1000` does appear first in your CSS file, as it does in my code listing above.
 
@@ -746,7 +746,7 @@ Try it and see.
 
 As you have just seen, you can set a `counter` to a value given by a custom CSS property. If you change the value of the custom CSS property, the values of all the counters will be recalculated.
 
-But you can also use `counter-set` explicitly anywhere in your CSS. Will there be a conflict of interests? Who will win? The custom CSS property or the value give by `counter-set`?
+But you can also use `counter-set` explicitly anywhere in your CSS. Will there be a conflict of interests? Who will win? The custom CSS property or the value given by `counter-set`?
 
 Here's how you could test this. Add a new line to your HTML:
 
@@ -775,7 +775,7 @@ body {
 Refresh your page.
 
 ![counter-set](images/counter-set.webp)  
-Figure 13.
+Figure 14.
 
 In the screenshot above, the custom CSS property `--start` is set to `100`, and this determines what value the `item` counter has, until the `<b class=resetter>` element is displayed. At this point, the rule...
 ```css
@@ -829,7 +829,7 @@ And just like the `counter` property has been made generic so that all HTML elem
 ```
 By default, each `counter-style` has `"."` as its suffix. If you want to remove this (as I did for the weekdays), or change it to something else (like `")"`), you can use the `suffix` property.
 
-Because you can use _any text_, you can also use emojis. Or [mathematical symbols](https://www.compart.com/en/unicode/category/Sm). Or Unicode [shapes](https://www.compart.com/en/unicode/block/U+25A0) and [arrows](https://www.compart.com/en/unicode/block/U+2190). The W3C specifications also describes the use of images, but at the time of writing, the major browsers have not implemented this for counters yet. (You can set the `list-style-image` as bullet points for a whole list or for an individual list item, though, but this is outside the current topic of counters.)
+Because you can use _any text_, you can also use emojis. Or [mathematical symbols](https://www.compart.com/en/unicode/category/Sm). Or Unicode [shapes](https://www.compart.com/en/unicode/block/U+25A0) and [arrows](https://www.compart.com/en/unicode/block/U+2190). The W3C specifications also describe the use of images, but at the time of writing, the major browsers have not implemented this for counters yet. (You can set the `list-style-image` as bullet points for a whole list or for an individual list item, though, but this is outside the current topic of counters.)
 
 ### `::marker`styling
 
@@ -996,7 +996,7 @@ Now when you refresh your page, you should see the `background-color` moving smo
 
 ### Step-wise frames
 
-The value of your `counter` changes by a whole integer at each step. With the default settings, the CSS elves get half-way towards the next way-point and they think "We're closer to next way-point now. Let's change already!" As a result, with your counter, the changes happen after 0.5s, 1.5s, 2.5s, and so on. That's why the change from `10` to `9` happens faster than you would expect.
+The value of your `counter` changes by a whole integer at each step. With the default settings, the CSS elves get half-way towards the next keyframe and they think "We're closer to next waypoint now. Let's change already!" As a result, with your counter, the changes happen after 0.5s, 1.5s, 2.5s, and so on. That's why the change from `10` to `9` happens faster than you would expect.
 
 Keep the `background-color` frames, but change your `animation` rule to this:
 ```css
@@ -1024,7 +1024,7 @@ This demonstration uses the following `@keyframes` animation:
  100% { z-index: 5; left: 200px; }
 }
 ```
-When you select `step-end` as the `animation-timing-function` for this animation, the integer steps for `z-index` coincide with the step-wise change of the `left` property for the grey square. When you select `linear` as the `animation-timing-function`, the value of `left` changes at a steady pace between keyframes. The change in `z-index` occurs when the grey square is halfway between two keyframe positions.
+When you select `step-end` as the `animation-timing-function` for this animation, the integer steps for `z-index` coincide with the stepwise change of the `left` property for the grey square. When you select `linear` as the `animation-timing-function`, the value of `left` changes at a steady pace between keyframes. The change in `z-index` occurs when the grey square is halfway between two keyframe positions.
 
 You can find a list of all animatable CSS properties [here](https://www.quackit.com/css/css3/animations/animatable_properties/). Most properties have an animation associated with them, and code that you can copy and paste.
 ### Starting an animation
@@ -1118,7 +1118,7 @@ Nothing happens.
 
 The rules says: "If any  of the radio button `<input>`s  is `:checked`, play the animation. If not, stop the animation." So it doesn't matter which button is checked. They all agree with each other.
 
-What happens if you specify that it only the button with an `id` of `play` is to make the animation play? Try this:
+What happens if you specify that only the button with an `id` of `play` is to make the animation play? Try this:
 ```css
 input#play:checked ~ a::after {
   animation: timer 1s forwards step-end;
@@ -1196,7 +1196,7 @@ The main focus of this article is counters, but to bring the story of a countdow
 You've used the `forwards` value of the `animation-fill-mode` property, so whatever CSS rules are given by the last keyframe will persist after the animation has finished. To see this, add a new rule at the end of the `@keyframes timer`:
 ```css
 @keyframes timer {
-  /* 10 lines skippep */
+  /* 10 lines skipped */
   100% { counter-increment: countdown -10;
          color: red; /* new rule */
        }
@@ -1282,7 +1282,7 @@ body:has(input:checked) {
 ```
 Do you see the difference? In the first rule, `--display` was set for the `<input>` element. The `<div>` is not a child of the `<input>` element, so it cannot inherit the value of `--display`.
 
-In fact, `<input>` elements cannot have any children. They are written with a single self-closing tag, so there is nowhere for a child to be added. And for this reason, they cannot have `::before` or `::after` pseudo-elements either. That's why I added an empty `<span></span>` element, which _can_ have children and `::before` and `::after` pseudo-elements, because that's what I'll use for story-telling.
+In fact, `<input>` elements cannot have any children. They are written with a single self-closing tag, so there is nowhere for a child to be added. And for this reason, they cannot have `::before` or `::after` pseudo-elements either. That's why I added an empty `<span></span>` element, which _can_ have children and `::before` and `::after` pseudo-elements, because that's what I'll use for storytelling.
 
 The second rule, which uses the [`:has()`](https://developer.mozilla.org/en-US/docs/Web/CSS/:has) pseudo-class, allows me to select the `<body>` element, only if there is an `<input>` which is `:checked` as one of its children. When you check the checkbox, the _`<body>`_ gives its `--display` custom property the new value of `flex`, and the `<div>` is a child of the `<body>`, so it inherits this new value. And the red message fills the screen.
 
@@ -1441,7 +1441,284 @@ But you should know a little about me by now. I do like words to be spelt correc
 
 [![lock](images/lock.webp)](https://MERNCraft.github.io/lock)
 
-This article is about counters, so I won't show you how to create the entire puzzle. I'll just show you how to animate the way the letters change. I'll get you to make a much simpler activity that uses this technique. If want to see how the order-of-execution logic was done, you can check out the GitHub repository.
+This article is about counters, so I won't show you how to create the entire puzzle. I'll just show you how to animate the way the letters change. I'll get you to make a much simpler activity that uses this technique. If want to see how the order-of-execution logic was done, you can check out the [GitHub repository](https://github.com/MERNCraft/lock).
+
+It's time to start a new project with a basic HTML page linked to a CSS file, just like you've done before.
+
+### Before...
+
+You're going to be animating two counters, using upper-case letters instead of numbers. The animation will start when you check a checkbox input. Figure 15 below shows what I want your page to look like in a browser. Do you think you can create this on your own, without looking at the HTML and CSS below?
+
+Do your best! You can compare your version with mine later, and see if yours was in fact more elegant : )
+
+![find it](images/find-it.webp)
+Figure 15.
+
+Here are some things to think about:
+
+- How to show the value of a counter
+- How to set the initial value of a counter
+- How to display a counter using upper-case letters
+- How you will (eventually) hide the checkbox input
+- How you can make a label look like a button
+
+Here's the HTML that I used:
+
+```html
+  <label>
+    <input type="checkbox">
+    Find
+  </label>
+  <span></span>
+```
+And you'll see below the CSS that I started with. Note that you names for built-in counter styles is case-insensitive.
+```css
+body {
+  counter-set:
+    letter-one 9
+    letter-two 20
+  ; 
+}
+
+label {
+  padding: 8px 16px;
+  border: 1px outset #888;
+  border-radius: 8px;
+  display: inline-block;
+}
+
+input {
+  position: absolute;
+  left: 0vw
+}
+
+span::before {
+  content: counter(letter-one, upper-alpha);
+}
+
+span::after {
+  content: counter(letter-two, UPPER-ALPHA)
+}
+```
+I imagine that you will have used different names for your classes and counters. You might have used a different selector to hold the `counter-set` rule. You might have used two elements to show the letters `IT`, each with its own `::before` or `::after` pseudo-element.
+
+That's good. If _your_ CSS creates a similar effect to mine, don't change it. If your CSS is different now, that means that you will have to adapt the CSS that I provide below so that it works with yours. And that means that you might make mistakes which you will have to correct. And each mistake that you learn how to correct helps you to remember what you have learnt.
+
+I've used `left: 0vw` for the absolute position of the input element. That means that it remains visible on the page for now. In production, I would set it to `-999vw` which will move it far off-screen to the left. The value I use is arbitrary; all that matters is that it is greater than the screen width of a checkbox.
+
+If you want your label to behave more like a button when you hover your mouse over it or click, you can add a couple of cosmetic rules:
+```css
+label:hover {
+  text-decoration: underline;
+}
+label:has(:checked),
+label:hover:active {
+  border-style: inset;
+  background-color: lightgrey;
+}
+```
+Now the label appears in a different state when the `<input>` that it contains is `:checked`.
+
+### And after...
+
+Now here's what I want your web page to look like after you check the checkbox:
+
+![find pi](images/find-pi.webp)
+Figure 16.
+
+Can you create two `@keyframes` at-rules, one to change the letter `I` into the letter `P`, and one to change the letter `T` into the letter `I`? And can you find a CSS selector and ruleset that will do the following?
+
+- Detect when the `<body>` element contains a checked input
+- Tell each of the `::before` or `::after` pseudo-elements which `@keyframes` animation to use
+
+Here are the `@keyframes` at-rules that I used in my version:
+```css
+@keyframes letter-1 {
+   0% { counter-increment: letter-one +0 } /* I */
+  15% { counter-increment: letter-one +1 } /* J */
+  29% { counter-increment: letter-one +2 } /* K */
+  43% { counter-increment: letter-one +3 } /* L */
+  57% { counter-increment: letter-one +4 } /* M */
+  71% { counter-increment: letter-one +5 } /* N */
+  85% { counter-increment: letter-one +6 } /* O */
+ 100% { counter-increment: letter-one +7 } /* P */
+}
+
+@keyframes letter-2 {
+   0% { counter-increment: letter-one  -0 } /* T */
+   9% { counter-increment: letter-two  -1 } /* S */
+  18% { counter-increment: letter-two  -2 } /* R */
+  27% { counter-increment: letter-two  -3 } /* Q */
+  36% { counter-increment: letter-two  -4 } /* P */
+  45% { counter-increment: letter-two  -5 } /* O */
+  54% { counter-increment: letter-two  -6 } /* N */
+  63% { counter-increment: letter-two  -7 } /* M */
+  72% { counter-increment: letter-two  -8 } /* L */
+  81% { counter-increment: letter-two  -9 } /* K */
+  90% { counter-increment: letter-two -10 } /* J */
+ 100% { counter-increment: letter-two -11 } /* I */
+}
+```
+I _could_ have used the same names for the animations as for the counters. CSS will understand that `@keyframes letter-one` refers to something different from `counter(letter-one)`, but if I give them different names then you can see that the name of the animation and the name of the counter it increments _can_ be different.
+
+I've used intervals that are not _exactly_ the same between each frame, just because I like to keep things as simple as possible. Also, I made the `T` to `I` animation run backwards through the alphabet, because it requires fewer changes.
+
+Here's the CSS rule that I used to trigger the animations:
+```css
+body:has(:checked) {
+  span::before {
+    animation: letter-1 0.7s linear forwards;
+  }
+  span::after {
+    animation: letter-2 1.1s 0.7s linear forwards;
+  }
+}
+```
+I used `0.1s` for each letter change, because I just want to see that the animation is working without wasting precious seconds. But I also made the first letter (`I` to `P`) complete its animation before the second letter started (`T` to `I`). I did this, just to illustrate that it is possible.
+
+If you want to create an animation more like a flight information display system at an airport, you could use the following `@keyframe` animation and a different rule for the second letter, like this:
+```css
+@keyframes letter-3 {
+   0% { counter-increment: letter-one  +0 } /* T */
+   7% { counter-increment: letter-two  +1 } /* U */
+  14% { counter-increment: letter-two  +2 } /* V */
+  20% { counter-increment: letter-two  +3 } /* W */
+  27% { counter-increment: letter-two  +4 } /* X */
+  33% { counter-increment: letter-two  +5 } /* Y */
+  40% { counter-increment: letter-two  +6 } /* Z */
+  46% { counter-increment: letter-two -19 } /* A */
+  53% { counter-increment: letter-two -18 } /* B */
+  60% { counter-increment: letter-two -17 } /* C */
+  67% { counter-increment: letter-two -16 } /* D */
+  73% { counter-increment: letter-two -15 } /* E */
+  80% { counter-increment: letter-two -14 } /* F */
+  86% { counter-increment: letter-two -13 } /* G */
+  93% { counter-increment: letter-two -12 } /* H */
+ 100% { counter-increment: letter-two -11 } /* I */
+}
+
+body:has(:checked) {
+  span::before {
+    animation: letter-1 0.7s linear forwards;
+  }
+  /* span::after {
+    animation: letter-2 1.1s 0.7s linear forwards;
+  } */
+  span::after {
+    animation: letter-3 1.5s linear forwards;
+  }
+}
+```
+If you've ever watched a (non-digital) flight information display system in an airport, you will know that they are noisy. And [noise is one thing that CSS can't do for you, at least not reliably](https://css-tricks.com/playing-sounds-with-css/). 
+
+But there's no sound in space either... or [not in any space near us or any time soon](https://www.youtube.com/watch?v=uD4izuDMUQA&t=952s). So perhaps when you are planning your own epic CSS game, you could set the story in space? Or [collaborate with a deaf community near you](https://play.deafverse.com/world/1)?
+
+Notice that in the `@keyframes letter-3` rule above, the `increment` value jumps from `+6` for `Z` to `-19` for A. The built-in`upper-alpha` counter uses `system: numerical` in its definition. That means that the value `27` will be represented as `AA`, which is not what you want. Try it and see. Change the values that you use in your `counter-set` rule to something like this:
+```css
+body {
+  counter-set:
+    letter-one 0
+    letter-two 27
+  ; 
+}
+```
+![0AA](images/0AA.webp)
+Figure 17.
+
+### Running an animation backwards
+
+Right now, if you deselect the checkbox, the display jumps back immediately to showing `IT`. There's no reverse animation.
+
+[Nikola Đuza at Pragmatic Pineapple](https://pragmaticpineapple.com/smoothly-reverting-css-animations/) has some good suggestions on how to make animations play smoothly in reverse, but none of them are helpful here.
+
+If you look at the documentation for [`animation-direction`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-direction), you'll see that one of the options for the value is `reverse`. You might think, like I did, that it would be easy to use this value with the `@keyframe` animations that you have already created. After trying, trying and trying this again and again, I have had to use a more brute-force solution. (If you find a better one, [let me know](https://github.com/MERNCraft/css-only-games-1/issues/new.)
+
+My solution was to make an exact copy of  my `@keyframes letter-1` and  `@keyframes letter-2` animations. I called them  `@keyframes letter-4` and  `@keyframes letter-5`. (I won't show them here, they are exactly the same as the animations you can find above, but with different names.)
+
+I added this rule to my CSS:
+```css
+body:has(:not(:checked)) {
+  span::before {
+    animation: letter-4 0.7s linear reverse forwards;
+  }
+  span::after {
+    animation: letter-5 1.5s linear reverse forwards;
+  }
+}
+```
+If you try this for yourself, you'll see that it has an unwanted side effect. Because the checkbox starts off unchecked, this `reverse` animation plays immediately after the page is loaded. What I needed was a third state, which would not trigger any animations at the start.
+
+Can _you_ think of any three-state solutions? There's a hint in the subtitle below. See if you can find a solution for yourself before you read on.
+
+### Radio buttons are off by default
+
+Consider this arrangement of radio buttons:
+```html
+  <label>
+    <input type="radio" name="play" id="find">
+    Find
+  </label>
+  <label>
+    <input type="radio" name="play" id="lose">
+    Lose
+  </label>
+```
+Both buttons share the same `name` property, so only one can be on at any given time. Two states. But... both can be _off_ when the page is first loaded. A third state, for free!
+
+So what CSS would you use with this? Notice that the radio buttons have different `id` values. Comment out your existing rules for `body:has(...)` and add this new one:
+```css
+body:has(#find:checked) {
+  span::before {
+    animation: letter-1 0.7s linear forwards;
+  }
+  span::after {
+    animation: letter-2 1.1s linear forwards;
+  }
+}
+```
+(It's almost the same as the first one that I suggested, but both animations run at the same time.)
+
+![find lose](images/find-lose.webp)
+Figure 18.
+
+On my screen, the Find label shows that its `<input>` has been `:checked`, but the radio button beside appears unchecked. Can you explain why? (Hint: How many radio buttons are there? What position has each been set to?)
+
+If you click on the Lose button, once again the display jumps back immediately to showing `IT`. There's still no reverse animation. You'll need to add a new rule for `#lose:checked`.
+```css
+body:has(#lose:checked) {
+  span::before {
+    animation: letter-4 0.7s linear reverse forwards;
+  }
+  span::after {
+    animation: letter-5 1.1s linear reverse forwards;
+  }
+}
+```
+### Kill the spare
+
+It would be nice to make this radio button pair behave like a single toggle checkbox... but with a third state. When the page is first loaded, you should see a button named "Find". When you click on it, its name should become "Lose". Or rather, it should be replaced by the Lose label.
+
+The new rule below will hide whichever label contains a `:checked` radio button:
+```css
+label:has(:checked) {
+  display: none;
+}
+```
+However, it still shows both buttons at the start when neither of them is checked yet. Can you think of a second selector for the rule above to apply to? It should say something like: "If there is a label containing an unchecked radio button followed by another label containing an unchecked radio button, hide the second label."
+
+You'll need to use a sibling combinator, like `~` or `+` to select the second label.
+
+Here's my solution. Can you adapt this to work with your version?
+```css
+label:has(input:not(:checked)) + label:has(input:not(:checked)),
+label:has(:checked) {
+  display: none;
+}
+```
+
+### Why 𝜋?
+
+
 ### Using an animation to cycle a list smoothly
 
 ## Incrementing with `:hover`
@@ -1451,7 +1728,7 @@ This article is about counters, so I won't show you how to create the entire puz
 
 I wrote at the beginning of this article that I would not be showing you, step by step, how to build a particular game. However, I do want to give you the chance to test whether my explanations have made good sense to you.
 
-I've created a game that uses the techniques that I have describe above. You can find the GitHub Repository [here](https://github.com/MERNCraft/path).
+I've created a game that uses the techniques that I have described above. You can find the GitHub Repository [here](https://github.com/MERNCraft/path).
 
 [![path](images/path.webp)](https://MERNCraft.github.io/path/)  
 [Link](https://MERNCraft.github.io/path/)
