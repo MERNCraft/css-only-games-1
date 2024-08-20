@@ -26,6 +26,8 @@ Before you start, you can play a little with the CSS-only activities below. Ask 
 - How can I create a countdown timer in CSS?
 - How can I calculate a score in CSS?
 - How is a counter used for the _letters_ in the word game?
+- CSS can do arithmetic?
+- Yes, OK, it has `calc()`, but how can I get it to show me the results?
 - Really!? I can use _counters_ to animate emojis? How soon can I use that in a project?
 - How does a counter know where the mouse is?
 
@@ -33,10 +35,13 @@ If you start with questions, each time you find an answer, you get a little buzz
 
 These are not all complete games or puzzles. You can think of them as illustrations of the concepts that you will be reading more about below.
 
-[![train](images/word.webp)](https://merncraft.github.io/word/)  
+[![word game](images/word.webp)](https://merncraft.github.io/word/)  
 [Link](https://merncraft.github.io/word/)
 
-[![spin](images/spin.webp)](https://merncraft.github.io/spin/)  
+[![calculator](images/calc.webp)](http://MERNCraft.github.io/calc)
+[Link](http://MERNCraft.github.io/calc)
+
+[![fruit machine](images/spin.webp)](https://merncraft.github.io/spin/)  
 [Link](https://merncraft.github.io/spin/)
 
 [![map](images/map.webp)](https://merncraft.github.io/map/)  
@@ -867,10 +872,9 @@ So far, you've seen how to count checkboxes, radio buttons and other elements wh
 
 Often, though, you want certain actions of your game to happen automatically: a countdown timer, for example, or a spinning reel on a fruit machine, or the expression on an emoji face. Or you may want to trigger something without the player performing an action as deliberate as a conscious click.
 
-In this section, I'll describe two solutions: CSS animations and the `:hover` pseudo-class.
+In the rest of this article, I'll describe two other solutions: CSS animations and the `:hover` pseudo-class.
 
-
-## An animated countdown
+### Animations
 
 The easiest project for exploring how CSS animations work with CSS counters is a countdown timer. For this new topic, you can create a new folder with the name "Countdown" and create inside it an HTML file and a linked CSS file. Here's enough HTML to get started:
 ```html
@@ -891,7 +895,7 @@ The `font-size` is not strictly necessary, but it makes the display more dramati
 
 > <u>Refresh Page 10</u> 
 
-### The `@keyframes` at-rule
+#### The `@keyframes` at-rule
 
 CSS Animations are defined by a [`@keyframes`](https://developer.mozilla.org/en-US/docs/Web/CSS/@keyframes) at-rule. Here is a rule that creates an animation with the name `timer`:
 ```css
@@ -944,7 +948,7 @@ body {
 ```
 Or to put it another way, CSS starts from the original static HTML page each time, and applies its rules in the appropriate order. There is never any question of looping. 
 
-### Playing an animation
+#### Playing an animation
 
 To get the countdown timer to work, you can add a single line to your CSS. This provides details that are not included in the `@keyframes` at-rule itself:
 ```css
@@ -964,7 +968,7 @@ The animation should start as soon as you load the page, and continue until the 
 
 Now you might understand why I started with the `Refresh Page` link. If you click on it, you can play the animation again.
 
-### Transition between frames
+#### Transition between frames
 
 You can click on this link to restart the animation. Do you notice that the step from `10` to `9` plays faster than the following steps? This is because, by default, CSS applies a transition between each keyframe. If the property that the animation changes can have intermediate values, then the animation will move it smoothly from one keyframe to the next.
 
@@ -994,7 +998,7 @@ Now when you refresh your page, you should see the `background-color` moving smo
 ```
 ... then the changes become even smoother.
 
-### Step-wise frames
+#### Step-wise frames
 
 The value of your `counter` changes by a whole integer at each step. With the default settings, the CSS elves get half-way towards the next keyframe and they think "We're closer to next waypoint now. Let's change already!" As a result, with your counter, the changes happen after 0.5s, 1.5s, 2.5s, and so on. That's why the change from `10` to `9` happens faster than you would expect.
 
@@ -1027,7 +1031,7 @@ This demonstration uses the following `@keyframes` animation:
 When you select `step-end` as the `animation-timing-function` for this animation, the integer steps for `z-index` coincide with the stepwise change of the `left` property for the grey square. When you select `linear` as the `animation-timing-function`, the value of `left` changes at a steady pace between keyframes. The change in `z-index` occurs when the grey square is halfway between two keyframe positions.
 
 You can find a list of all animatable CSS properties [here](https://www.quackit.com/css/css3/animations/animatable_properties/). Most properties have an animation associated with them, and code that you can copy and paste.
-### Starting an animation
+#### Starting an animation
 
 For now, to restart the animation, you have to click on the link to reload the page. Reloading the page will reset everything in your game, so you only want to do this if the player wants to start over from the beginning.
 
@@ -1081,7 +1085,7 @@ Now, if you move your mouse over the text `Refresh Page`, or the `1` of the numb
 
 Depending on which browser you are using, you may see the display flicker between `10` and `9`, or you may just see the cursor flicker between a pointer and an arrow.
 
-### Restarting when the state changes
+#### Restarting when the state changes
 
 If you hold the mouse in a place where the animation will run to the end, you should see a big `0`. If you then move the mouse away from the link, it will revert to showing `10`.
 
@@ -1089,7 +1093,7 @@ Before, it played all the way to the end, and then stayed at `0`. What has chang
 
 Before, the animation started as soon as the page was loaded. The page remained loaded after the animation finished, so the CSS elves left everything the way they were told to by the final `100%` keyframe of the animation. Now, when you move the mouse off the link, they consider the animation to be switched off again, and reset everything to its original state.
 
-### Pausing an animation
+#### Pausing an animation
 
 Instead of `:hover`, you can use the state of a checkbox or a radio button to change the state of an animation. Edit your HTML page so that it looks like this:
 ```html
@@ -1139,7 +1143,7 @@ input#paused:checked ~ a::after {
 ```
 This also plays the animation when it is selected, but it sets the [`animation-play-state`](https://developer.mozilla.org/en-US/docs/Web/CSS/animation-play-state) to `paused`. So if you refresh your page and then click the middle radio button, nothing happens. (The CSS elves are in fact busy, but they are busy doing nothing.) If you click on the left-most (`#play`) radio button, the animation will start. If you click on the middle (`#pause`) button, it will ... pause. You can continue the animation from this by clicking on the left-most button again. Or you can reset the counter to `10` by clicking on the right-most (`stop`) button.
 
-### Who owns the animation?
+#### Who owns the animation?
 
 What happens if you comment out the line that makes the `#paused` play the animation:
 ```css
@@ -1187,7 +1191,7 @@ The more complex selector for the `#paused` button means that it could now be an
   </div>
 ```
 
-### Triggering a timeout
+#### Triggering a timeout
 
 Now that you can create a countdown timer, the next step is to do something when the player's time runs out. If CSS were a programming language, you might do something when the value of the `counter` reaches `0`. But CSS is a styling language. It simply applies a series of rules to a basically static page. It _uses_ counters but it does not give you any way to _read the value_ of a counter, and certainly no way to compare one value with another.
 
@@ -1249,7 +1253,7 @@ a {
   position: absolute;
 }
 ```
-### Hiding and showing the message of doom
+#### Hiding and showing the message of doom
 To hide the red `<div>` you can set its `display` to `none`. But you don't need to do this directly. You can use a custom CSS property with the value of `none`. Add a new rule, and a new line to the ruleset for the `div`:
 ```css
 
@@ -1288,7 +1292,7 @@ The second rule, which uses the [`:has()`](https://developer.mozilla.org/en-US/d
 
 You can click on the <u>Refresh Page</u> link to make it disappear again.
 
-### Ten seconds until the end
+#### Ten seconds until the end
 
 Actually, so far you have created the exact opposite of the story I want to tell. I want to create a countdown where clicking this button will stop the red message from appearing. This is the ending I want your triumphant player to see:
 ```css
@@ -1346,7 +1350,7 @@ body {
 ```
 Now the animation works. Now that you know that, you can set its duration to `10s` to give yourself time to stop the animation before it ends in tragedy.
 
-### Averting the impending disaster
+#### Averting the impending disaster
 
 My story needs two more elements to make it even a little bit interesting:
 1. An indication that the end is coming
@@ -1422,7 +1426,7 @@ And since you are now the villain, you can deselect the checkbox again, and let 
 
 Yes, but while you were doing this, the real hero (played by your non-evil twin) crept unseen into the HTML file and changed the `type` of the `<input>` from `"checkbox"` to `"radio"`. Once a solitary radio button is checked, it cannot be unchecked. The good guys win again! One person can save the world!
 
-### Final tweaks
+#### Final tweaks
 
 The [online version](https://merncraft.github.io/countdown)of this mini story game contains some cosmetic improvements. In particular, if you let the countdown reach one second, your version of the game will say "We have only 1 *seconds* left!", with "seconds" in the plural even though there is only one.
 
@@ -1445,7 +1449,7 @@ This article is about counters, so I won't show you how to create the entire puz
 
 It's time to start a new project with a basic HTML page linked to a CSS file, just like you've done before.
 
-### Before...
+#### Before...
 
 You're going to be animating two counters, using upper-case letters instead of numbers. The animation will start when you check a checkbox input. Figure 15 below shows what I want your page to look like in a browser. Do you think you can create this on your own, without looking at the HTML and CSS below?
 
@@ -1519,7 +1523,7 @@ label:hover:active {
 ```
 Now the label appears in a different state when the `<input>` that it contains is `:checked`.
 
-### And after...
+#### ... and after
 
 Now here's what I want your web page to look like after you check the checkbox:
 
@@ -1625,7 +1629,7 @@ body {
 ![0AA](images/0AA.webp)
 Figure 17.
 
-### Running an animation backwards
+#### Running an animation backwards
 
 Right now, if you deselect the checkbox, the display jumps back immediately to showing `IT`. There's no reverse animation.
 
@@ -1650,7 +1654,7 @@ If you try this for yourself, you'll see that it has an unwanted side effect. Be
 
 Can _you_ think of any three-state solutions? There's a hint in the subtitle below. See if you can find a solution for yourself before you read on.
 
-### Radio buttons are off by default
+#### Radio buttons are off by default
 
 Consider this arrangement of radio buttons:
 ```html
@@ -1694,7 +1698,7 @@ body:has(#lose:checked) {
   }
 }
 ```
-### Kill the spare
+#### Kill the spare
 
 It would be nice to make this radio button pair behave like a single toggle checkbox... but with a third state. When the page is first loaded, you should see a button named "Find". When you click on it, its name should become "Lose". Or rather, it should be replaced by the Lose label.
 
@@ -1717,6 +1721,378 @@ label:has(:checked) {
 ```
 
 ### Why 𝜋?
+
+There is a reason why I chose to use PI for this exercise, other than that it is a two-letter word, so it's just enough for you to practise with. I had never really thought about CSS-only games until I found this puzzle on Wikipedia:
+
+[![SVG puzzle](images/SVG-puzzle.jpg)](https://upload.wikimedia.org/wikipedia/commons/4/44/Balance_puzzle_SMIL.svg)
+
+I've blurred the solution, so that you can enjoy solving the puzzle for yourself... but I not blurred it so completely that you can't read it if you look closely. So you can cheat if you want to.
+
+My first thought when I saw this puzzle was: "There's no programming language in an SVG file! How is this even possible!" My second thought was: "I can reverse-engineer this 😈" And after I had done this, my third thought was: "So... I can do something like this in CSS, can't I?"
+
+My very first CSS-only game used a technique like the one in this SVG file. I wanted to keep my game simple, so I wanted a solution that used only three numbers, and one of the most well-known three-figure numbers is 3.14.
+
+When I had got my first version working, I thought: "Actually, CSS has better ways to do this than SVG has." And then (yes, five thoughts in a single day, and this is why you are here now): "Just _how many_ CSS techniques are there that could be repurposed or subverted or shoehorned into creating games?"
+
+So: 𝜋 is where it all began.
+
+And you'll notice that I haven't even finished with counters yet. There are plenty more topics in this field for me to cover.
+
+### Counting clicks: take 2
+
+This SVG puzzle allows you to cycle through the digits from `0` to `9` and then round to `0` again.
+
+In the last exercise, you saw how to use just two radio buttons to cycle through just two different states (Find and Lose). Can you imagine how you could extend this technique to cycle through all the numbers from `0` to `9` and then start again from `0`?
+
+>Ah. Technically, this exercise should not be in the Animations section, because it doesn't involve any animations.
+>
+>When I first planned this part, I had imagined that I would be able to use animation and two radio buttons, one on top of the other. My plan was to start with an animation which would repeatedly cycle through the digits `0` to `9`, but which started of `paused`. The animation would start `running` as soon as the top radio button was checked. When the animation reached the next keyframe, it would move the label for the other radio button in front, so the label for the `:checked` button would no longer generate a `:hover` pseudo-class. I would have a rule that would pause the animation if there was no `:hover` pseudo-class on the `:checked` button, so the animation would stop at the current number, and stay there until the radio button which was now at the front was clicked...
+>
+>Fiendishly clever, I thought. But only Firefox agrees with me. Safari doesn't update the `:hover` class until you move the mouse. And the Chrome CSS elves just shake their heads and say: "What!?"
+>
+>[![fail](images/fail.webp)](https://merncraft.github.io/stop-motion/)
+>
+>Try it for yourself in different browsers.
+>
+>I have included this failed attempt for a good reason, and not just because it took a lot of effort to get it to work at all. All progress takes effort. I learned that Safari, Chrome and Firefox all treat `:hover` in subtly different ways. Even though the concept was a failure, I learned something from it that I wouldn't have discovered if I had not tried and failed.
+
+Sorry for the interruption. Back to my earlier question: **Can you imagine how you could extend the label-and-radio-button technique that you have just seen, to cycle through all the numbers from `0` to `9` and then start again from `0`?**
+
+New HTML and CSS files. Here's some HTML to get started with:
+
+Actually, the more I think about this, the more solutions I can imagine for this problem. So if you find a solution that is very different from mine, well: yours is right too.
+
+Here's the HTML for the first solution that I tried: 
+```html
+<input type="radio" name="d" id="d0" checked>
+<input type="radio" name="d" id="d1">
+<input type="radio" name="d" id="d2">
+<input type="radio" name="d" id="d3">
+<input type="radio" name="d" id="d4">
+<input type="radio" name="d" id="d5">
+<input type="radio" name="d" id="d6">
+<input type="radio" name="d" id="d7">
+<input type="radio" name="d" id="d8">
+<input type="radio" name="d" id="d9">
+<label for="d1">1</label>
+<label for="d2">2</label>
+<label for="d3">3</label>
+<label for="d4">4</label>
+<label for="d5">5</label>
+<label for="d6">6</label>
+<label for="d7">7</label>
+<label for="d8">8</label>
+<label for="d9">9</label>
+<label for="d0">0</label>
+```
+With no CSS, this creates a line of 10 checkboxes, followed by the digits `1234567890` in the same order as on the keyboard. Note, though that the _first_ input is checked, and this is the input with`id="d0"`. The input for `0` is at the beginning, but the `<label for="d0">` is at the end.
+
+I want to show only two labels at any one time:
+
+- The label which is `for` the `:checked` input. This should be visible.
+- The label which is `for` the input with the next number in the cycle. This should be:
+	- Invisible
+	- In front of the label `for` the `:checked` input.
+
+If I use `position: absolute` for all the labels, they will all appear one on top of each other, with the `<label for="d0">` immediately under the mouse. I'll make everything really big, so it's easy to click on the numbers:
+```css
+label {
+  /* Cosmetic */
+  --size: 100vmin;
+  width: var(--size);
+  height: var(--size);
+  font-size: var(--size);
+  text-align: center;
+
+  /* Logical */
+  position: absolute;
+}
+```
+![labels](images/absolute.webp)
+Figure 19.
+
+I won't show the `/* Cosmetic */` CSS any more, but you might like to keep it in your project anyway.
+
+I need to put the `<label for="d1">` in front of the `<label for="d0">`. If I set the `z-index` for all the labels —except for `<label for="d0">`— to `1`, then a click on what seems to be the `0` will in fact be a click on the`1`. 
+```css
+label {
+  position: absolute;
+  z-index: 1;
+  display: none;
+}
+
+#d0:checked ~ [for=d0] {
+  display: block;
+  opacity: 1;
+}
+
+#d0:checked ~ [for=d1] {
+  display: block;
+  opacity: 0;
+}
+
+[for=d0] {
+  z-index: 0;
+}
+
+#d9:checked ~ [for=d0] {
+  z-index: 1
+}
+```
+
+With the CSS shown above, if I click on the `0`, `<input id="d0">` will no longer be checked, but `<input id="d1">` will be checked instead. I now want `<label for="d1">` to be visible, with `<label for="d2">` in front of it, but invisible. I can do this by adding an additional selector to each of the rulesets that set both `display` and `opacity`.
+
+```css
+#d1:checked ~ [for=d1],
+#d0:checked ~ [for=d0] {
+  display: block;
+  opacity: 1;
+}
+#d1:checked ~ [for=d2],
+#d0:checked ~ [for=d1] {
+  display: block;
+  opacity: 0;
+}
+```
+Indeed, I can apply the same logic all the way up to 9:
+```css
+label {
+  position: absolute;
+  z-index: 1;
+  display: none;
+}
+
+#d9:checked ~ [for=d9],
+#d8:checked ~ [for=d8],
+#d7:checked ~ [for=d7],
+#d6:checked ~ [for=d6],
+#d5:checked ~ [for=d5],
+#d4:checked ~ [for=d4],
+#d3:checked ~ [for=d3],
+#d2:checked ~ [for=d2],
+#d1:checked ~ [for=d1], 
+#d0:checked ~ [for=d0] {
+  display: block;
+  opacity: 1;
+}
+#d9:checked ~ [for=d0],
+#d8:checked ~ [for=d9],
+#d7:checked ~ [for=d8],
+#d6:checked ~ [for=d7],
+#d5:checked ~ [for=d6],
+#d4:checked ~ [for=d5],
+#d3:checked ~ [for=d4],
+#d2:checked ~ [for=d3],
+#d1:checked ~ [for=d2], 
+#d0:checked ~ [for=d1] {
+  display: block;
+  opacity: 0;
+}
+
+[for=d0] {
+  z-index: 0;
+}
+```
+I can follow what happens in the Developer Tools Inspector:
+
+![inspector](images/inspector.webp)
+Figure 20.
+
+But when I get to `9`, I want the next click to apply to the `<label for="d0">`. In the Inspector, this label _appears_ to be in a higher layer than  the `<label for="d9">`, but just now, I set the `z-index` of every label _except_  the `<label for="d0">` to `1`, so that I could click on  the `<label for="d1">` instead.  Now I'll need one last rule to fix this for this one specific case:
+```css
+#d9:checked ~ [for=d0] {
+  z-index: 1
+}
+```
+Try it! You should be able to cycle through all the numbers.
+
+This system has some advantages. At any time, I can use a selector which contains (say) `#d3:checked`, to check if the player is currently looking at a `3`. This makes it easy to apply other rules to other elements when you select the answer that I want you to select.
+
+A major disadvantage is that you must click on the current number itself if you want it to increase. This is not an intuitive action. It would be better to have a specific button that says `+`. And if you add a `+` button, why not add a `–` button, too? But, wait a minute... how can you make two buttons that work in opposite directions?
+#### A label with two wings
+
+New HTML and CSS files. You know the drill. Here's some HTML to get you started:
+```html
+<label class="d0">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d0" checked>
+    <span class="p">+</span>
+  </label>
+  <label class="d1">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d1">
+    <span class="p">+</span>
+  </label>
+  <label class="d2">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d2">
+    <span class="p">+</span>
+  </label>
+  <!-- Something is missing here -->
+  <span class="display"></span>
+```
+This only gives you three labels. They have radio buttons with the `id`s `d0`, `d1` and `d9`, but this is enough for you to check if this creates some kind of cycle. You can add more labels with the same structure later.
+
+Each label has two spans: one with the class `"m"` (for "minus"), one with the class `"p"` (for "plus"). Suppose `<input id="d1">` is checked. Can you write a CSS rule that will show _only_ the `.m` span for inside the `<label class="d0">` and the `.p` span for inside the `<label class="d2">`?
+
+Note that if any child of `<label class="dX">` is clicked, the associated `<input id="dX">` will become checked. 
+
+Here is the strict minimum that you need:
+```css
+label {
+  display: none;
+}
+
+body:has(#d1:checked) {
+  .d0 span.m { display: block }
+  .d2 span.p { display: block }
+}
+```
+And this is what it will look like **if you check the checkbox for `#d1`**:
+
+![plus and minus](images/plus-minus.webp)
+Figure 21.
+
+If you click either the `–` or the +, a different checkbox will be checked, and the  `–` and the + will disappear. The CSS below has exactly the same _logical_ effect, but it just looks a bit bigger.
+
+```css
+body {
+  /* Cosmetic */
+  margin: 0;
+  --size: 40vmin;
+}
+
+label span {
+  /* Cosmetic */
+  position: absolute;
+  width: var(--size);
+  height: var(--size);
+  font-size: var(--size);
+  text-align: center;
+  border: 1px outset #888;
+  border-radius: var(--size);
+  top: 20px;
+
+  /* Logical */
+  display: none;
+
+  /* Cosmetic */
+  &.p {
+    left: var(--size);
+  }
+}
+
+body:has(#d1:checked) {
+  .d0 span.m { display: block }
+  .d2 span.p { display: block }
+}
+```
+You can adjust this to suit your tastes.
+
+![bigger](images/big-plus.webp)
+Figure 22.
+
+#### Showing the value
+
+The HTML I gave you includes this: `<span class="display"></span>`, but nothing is displayed in this span yet. I think you can guess that you can get it to display a `counter` in a `content` declaration. 
+
+You could add a line to the ruleset for the `#d1:checked` button, and a new rule for the `span.display`:
+```css
+body:has(#d1:checked) {
+  counter-set: digit 1; /* new declaration */
+  .d0 span.m { display: block }
+  .d2 span.p { display: block }
+}
+
+/* new rules */
+span.display {
+  font-size: var(--size);
+}
+span.display::after {
+  content: counter(digit)
+}
+```
+This would work. It would definitely work, but CSS won't let you read the value of a `counter`, except to display it in a `::before` or `::after` element. Is there a different CSS property that you could set... and then display the value of this different property? Hint: how did I set the _size_ of the spans that show the `–` and  `+` buttons?
+
+How about this:
+```css
+body {
+  --counter: 0; /* declare a custom property... */
+  counter-set: digit var(--counter); /* ... and use it to set a counter */
+}
+
+body:has(#d1:checked) {
+  --counter 1; /* set the custom property to a new value */
+  .d0 span.m { display: block }
+  .d2 span.p { display: block }
+}
+```
+Custom properties have the advantage that they can be read from any child of the element in which they are declared. They can even be read by JavaScript. Try this in the Developer Console
+```javascript
+getComputedStyle(document.body).getPropertyValue("--counter")
+```
+>And if you are _really_ sneaky, you can even store JavaScript code inside a custom CSS property. The [official specifications for Custom Property Value Syntax](https://www.w3.org/TR/css-variables-1/#syntax) explicitly requires browsers to make this possible. ( See "EXAMPLE 7")
+
+You can't _show_ the value of a custom property directly, but if it is a number, then you can use it with `counter-set`, and then get a _`counter`_ to display it for you.
+
+#### Repeating a pattern
+
+You want to be able to cycle through the numbers `0` to `9`, but for now, you can only show the number `1` (if the right radio button is checked). You need more labels with spans and radio buttons in your HTML page...
+```html
+  <label class="d0">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d0" checked>
+    <span class="p">+</span>
+  </label>
+  <label class="d1">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d1">
+    <span class="p">+</span>
+  </label>
+ <label class="d2">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d2">
+    <span class="p">+</span>
+  </label>
+  <!-- Add a label for 3 with the appropriate class and id for the input -->
+  <label class="d3">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d3">
+    <span class="p">+</span>
+  </label>
+  <!-- Continue the sequence up to 9 (4-8 are skipped here) -->
+  <label class="d9">
+    <span class="m">–</span>
+    <input type="radio" name="d" id="d9">
+    <span class="p">+</span>
+  </label>
+```
+... and you need more CSS rules, each with a similar pattern:
+```css
+body:has(#d0:checked) {
+  --counter: 0;
+  .d9 span.m { display: block } /* Notice that the "minus" span belongs to 0 */
+  .d1 span.p { display: block }
+}
+body:has(#d1:checked) {
+  --counter: 1;
+  .d0 span.m { display: block }
+  .d2 span.p { display: block }
+}
+body:has(#d2:checked) {
+  counter-set: 2;
+  --counter: 2;
+  .d1 span.m { display: block }
+  .d3 span.p { display: block }
+}
+/* And so on, up to 9 ... which is a little bit different */
+body:has(#d9:checked) {
+  --counter: 9;
+  .d8 span.m { display: block }
+  .d0 span.p { display: block }
+}
+```
+Make these changes to your project, and then check if the plus and minus buttons work as expected. **Did you notice that the "plus" for 9 and the "minus" for 0 are different?** That's what makes the system cycle.
 
 
 ### Using an animation to cycle a list smoothly
