@@ -13,10 +13,10 @@ In this article, you'll be looking at the following ideas:
 4. Using `z-index` to reorder elements
 5. Using the `:hover` pseudo-class to intercept the actions of the mouse
 6. Writing selectors that control the logic
-7. Using custom CSS properties
+7. **Using custom CSS properties**
 8. **Working with counters**
 
-My main focus here will be on understanding how **CSS counters work**. You need to use counters, after all, to number things: to show the score or to display a timer, for example. These are simple ways to add urgency and excitement to a game. And if you think laterally, you can also get counters to do some quite unexpected things for you, as you will see.
+My main focus here will be on the last two ideas: understanding how **CSS custom properties and counters work together**. You need to use counters, after all, to number things: to show the score or to display a timer, for example. These are simple ways to add urgency and excitement to a game. And if you think laterally, you can also get counters to do some quite unexpected things for you, as you will see.
 
 I won't treat the other seven ideas is such great depth here. I'll be writing other articles about them specifically.
 
@@ -53,6 +53,7 @@ You might also have other questions, like:
 - How do I make an animation glitch?
 - How do I ensure that whichever button the player clicks last behaves differently from the others?
 - Must I solve the word game to find a link to the repo?
+- How do I create that neat revolving reel animation?
 
 Keep these questions in mind. You'll find answers to them in forthcoming tutorials... unless you can create good ~~punchlines~~ answers for yourself first : )
 
@@ -2094,6 +2095,9 @@ body:has(#d9:checked) {
 ```
 Make these changes to your project, and then check if the plus and minus buttons work as expected. **Did you notice that the "plus" for 9 and the "minus" for 0 are different?** That's what makes the system cycle.
 
+#### Next step: making a calculator
+
+The technique that I have described here is exactly the same as the one I used to create the [Arithmetic in Pure CSS](https://merncraft.github.io/calc/) activity that you tried out at the beginning. It's true that the span "buttons" are a little more discreet there. There's also a little calculation that is done with the values of the custom CSS properties that hold the digit values, and a little trick to show `NaN` if you try to divide by `0`. But you should be able to reverse engineer everything that I did there... and if you get stuck you can always visit the GitHub repo and see all the CSS for yourself.
 
 ### Using an animation to cycle a list smoothly
 
